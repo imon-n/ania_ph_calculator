@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can I Crack PH Job Placement?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="text-center p-2 pb-1 bg-gray-300">
+        <p class="text-2xl mb-2 text-blue-600 font-semibold">
+            Track your progress to crack the PH job placement!
+        </p>
+    </div>
+    <div class="container mx-auto  p-6 pt-0">
+        <!-- Motivational Section -->
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <!-- Current Average Marks Section -->
+            <div class="w-full max-w-md mx-auto flex flex-col justify-center items-center">
+                <div class="bg-blue-100 p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Current Average Marks: <span class="text-green-600">{{ average_marks }}</span></h3>
+                    <h3 class="text-xl font-semibold text-gray-800">Average Marks Needed: <span class="text-blue-600">{{ remaining_needed }}</span></h3>
+                </div>
+            </div> 
+
+            <!-- Submission Form Section -->
+            <div class="max-w-md mx-auto flex flex-col justify-center items-center">
+                <div class="bg-violet-100 p-6 rounded-lg shadow-md mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Update Assignment Marks</h2>
+                    <form method="post" class="space-y-4">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition duration-300">Submit</button>
+                    </form>
+                    <div class="ml-20 -mt-8">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="clear_data" class="bg-red-600 text-white px-4 py-1 rounded-lg hover:bg-red-700 transition duration-300">Reset</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Previous Marks Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md text-center mt-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Previous Marks</h2>
+            <ol class="space-y-3 list-decimal list-inside">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    {% for assignment in assignments %}
+                    <div>
+                        <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <span class="font-medium text-gray-700">Assignment => Gained:</span>
+                            <span class="text-green-600">{{ assignment.obtained_marks }}</span> /
+                            <span class="text-blue-600">{{ assignment.assigned_marks }}</span>
+                        </li>
+                    </div>
+                {% endfor %} 
+                </div>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
